@@ -1,0 +1,22 @@
+Options -Indexes
+ServerSignature Off
+
+<FilesMatch "\.(sql|log|env|md|gitignore)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+<FilesMatch "^(config|includes)/.*\.php$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+RewriteEngine On
+RewriteBase /
+
+# Force HTTPS (uncomment on production)
+# RewriteCond %{HTTPS} off
+# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Block direct access to sensitive dirs
+RewriteRule ^(config|includes)/ - [F,L]
